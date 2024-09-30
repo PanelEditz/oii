@@ -1,0 +1,167 @@
+/* Importing Poppins ExtraBold */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 800px;
+    opacity: 0; /* Hide initially */
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animasi untuk muncul satu persatu */
+.checklist label {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s forwards ease-in-out;
+}
+
+.checklist label:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.checklist label:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.checklist label:nth-child(3) {
+    animation-delay: 0.6s;
+}
+.checklist label:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800; /* ExtraBold */
+    user-select: none;
+    transition: transform 0.3s ease-in-out; /* Smooth animation */
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out; /* Smooth background change */
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #eee; /* Kotak abu-abu saat dicentang */
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid black; /* Simbol centang hitam */
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    opacity: 0; /* Awal tidak terlihat */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition untuk kemunculan */
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    opacity: 1; /* Muncul secara smooth */
+}
+
+/* Animasi munculnya list satu per satu setelah rotate */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styling for rotate message */
+.rotate-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 800;
+    color: red;
+    text-align: center;
+}
+
+/* Media query for portrait mode */
+@media screen and (orientation: portrait) {
+    .container {
+        display: none;
+    }
+
+    .rotate-message {
+        display: block;
+    }
+}
+
+/* Media query for landscape mode */
+@media screen and (orientation: landscape) {
+    .rotate-message {
+        display: none;
+    }
+
+    .container {
+        display: flex;
+        animation: fadeInContainer 1s forwards ease-in-out;
+    }
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
